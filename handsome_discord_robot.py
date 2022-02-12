@@ -10,35 +10,20 @@ import time
 from NHentai import NHentai
 
 class handsomeClient(discord.Client):
-	def nhentai_recommander(self, who):
-		print("who:", who)
-
+	def nhentai_recommander(self):
 		# sage time (10s)
-		if time.time() - self.ehentai_timestamp < 10:
+		if time.time() - self.nhentai_timestamp < 10:
 			return f'還不可以色色<:fap:906177947193475153><:fap:906177947193475153>'
 		
 		# update sage time
-		self.ehentai_timestamp = time.time()
+		self.nhentai_timestamp = time.time()
 
-		# spider
-		# headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"}
-		# html = requests.get(f'https://e-hentai.org/?f_cats=1021&f_search=big+breasts+chinese&page={random.randint(1, 101)}', headers)
-		# information = re.search('The ban expires in ([0-9]+) minutes and ([0-9]+) seconds', html.text)
-
-		# re_url = re.findall('https://e-hentai.org/g/[0-9]+/[0-9a-z]+/', html.text)
-		# IF_DEBUG
-		# print(html.status_code, html.text)
-		# print(re_url)
-
-		# if not re_url:
-		# 	return f'太色所以被 ban 了<:fap:906177947193475153><:fap:906177947193475153>'
-		# 	# return f'太色所以被 ban 了，你還要{information[1]}分{information[2]}秒才可以<:fap:906177947193475153><:fap:906177947193475153>'
-		# else:
-		# 	return random.choice(re_url)
-		nhentai = NHentai()
-		random_doujin: Doujin = nhentai.get_random()
+		# return random nh url
+		random_doujin: Doujin = self.nhentai.get_random()
 
 		return random_doujin.url
+	async def fap(self, message):
+		await self.nsfw_channel.send(self.nhentai_recommander())
 
 
 	async def getJasonHsu(self, message):
@@ -78,17 +63,20 @@ class handsomeClient(discord.Client):
 
 		# Ehentai Recommander
 		elif fap:
-			if 'Jason' in message.author.display_name:
-				await message.channel.send(self.nhentai_recommander('futa'))
-			else:
-				await message.channel.send(self.nhentai_recommander(""))
+			await self.fap(message)
 
 	async def on_ready(self):
 		print("[Info] Start the handsome_discord_robot! HANDSOME!")
 		print("[Info] Now login as", self.user)
 		print("[Info] Setting variables")
+
+		# for general
 		self.emos = ["<:handsome:906144446280785960>"]*80+["<:horny:933021525597093928>"]*5+["<:fe:908710806739365890>"]*5+["<:zhai:908710875182018650>"]*5+["<:fap:906177947193475153>"]+["<:shen:906145037681827850>"]+["<:self_fella:908703249723449354>"]+["<:penibokki:906180179397840896>"]
-		self.ehentai_timestamp = 0
+
+		# for fap
+		self.nhentai = NHentai()
+		self.nhentai_timestamp = 0
+		self.nsfw_channel = self.get_channel(int(os.getenv('NSFW_CHANNEL_ID')))
 		
 
 def main():
