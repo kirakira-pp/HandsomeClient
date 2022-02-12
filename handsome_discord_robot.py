@@ -19,7 +19,7 @@ class handsomeClient(discord.Client):
 		self.nhentai_timestamp = time.time()
 
 		# return random nh url
-		results = Utils.search_by_query('chinese uploaded:<20d -瑞树 -males', page=random.randrange(10), sort=Sort.PopularWeek)
+		results = Utils.search_by_query('chinese uploaded:<365d -males', page=random.randrange(20), sort=Sort.PopularYear)
 		print('[debug] Get', len(list(results)), 'results')
 		return random.choice(list(results)).url
 
