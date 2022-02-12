@@ -19,7 +19,7 @@ class handsomeClient(discord.Client):
 		self.nhentai_timestamp = time.time()
 
 		# return random nh url
-		results = Utils.search_by_query('chinese uploaded:<365d -males', page=random.randrange(20), sort=Sort.PopularYear)
+		results = Utils.search_by_query('chinese uploaded:<365d -males', page=random.randrange(20)+1, sort=Sort.PopularYear)
 		print('[debug] Get', len(list(results)), 'results')
 		return random.choice(list(results)).url
 
@@ -78,6 +78,7 @@ class handsomeClient(discord.Client):
 		# for fap
 		self.nhentai_timestamp = 0
 		self.nsfw_channel = self.get_channel(int(os.getenv('NSFW_CHANNEL_ID')))
+		random.seed(time.time())
 		
 
 def main():
