@@ -7,7 +7,7 @@ import re
 import random
 import requests
 import time
-from NHentai import NHentai
+from hentai import Hentai, Format, Utils, Sort, Option, Tag
 
 class handsomeClient(discord.Client):
 	def nhentai_recommander(self):
@@ -19,9 +19,10 @@ class handsomeClient(discord.Client):
 		self.nhentai_timestamp = time.time()
 
 		# return random nh url
-		random_doujin: Doujin = self.nhentai.get_random()
+		results = Utils.search_by_query('chinese uploaded:<20d', sort=Sort.PopularWeek)
+		return random.choice(list(results)).url
 
-		return random_doujin.url
+
 	async def fap(self, message):
 		await self.nsfw_channel.send(self.nhentai_recommander())
 
@@ -74,7 +75,6 @@ class handsomeClient(discord.Client):
 		self.emos = ["<:handsome:906144446280785960>"]*80+["<:horny:933021525597093928>"]*5+["<:fe:908710806739365890>"]*5+["<:zhai:908710875182018650>"]*5+["<:fap:906177947193475153>"]+["<:shen:906145037681827850>"]+["<:self_fella:908703249723449354>"]+["<:penibokki:906180179397840896>"]
 
 		# for fap
-		self.nhentai = NHentai()
 		self.nhentai_timestamp = 0
 		self.nsfw_channel = self.get_channel(int(os.getenv('NSFW_CHANNEL_ID')))
 		
