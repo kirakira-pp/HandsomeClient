@@ -59,7 +59,7 @@ class handsomeClient(discord.Client):
 			if 'Jason' in message.author.display_name:
 				await message.channel.send("<:self_fella:908703249723449354>")
 			else:
-				string = f"{user.mention} <:so:906144664522981386> " + random.choice(self.emos)
+				string = f"<:so:906144664522981386> " + random.choice(self.emos)
 				await message.channel.send(string)
 
 		# Ehentai Recommander
