@@ -25,6 +25,7 @@ class handsomeClient(discord.Client):
 
 
 	async def fap(self, message):
+		random.seed(time.time())
 		await self.nsfw_channel.send(self.nhentai_recommander())
 
 
