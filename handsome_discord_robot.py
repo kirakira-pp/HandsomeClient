@@ -19,16 +19,22 @@ class handsomeClient(discord.Client):
 		self.nhentai_timestamp = time.time()
 
 		# return random nh url
-		for _ in range(10):
+		MAX_TRY = 1 
+		for test in range(MAX_TRY):
 			try:
-				rPage = random.randrange(30)+1
-				results = Utils.search_by_query('chinese uploaded:<30d -males -tomgirl', page=rPage, sort=Sort.PopularYear)
-				print('[debug] rPage:', rPage)
+				popular_loli = Utils.search_by_query('tag:loli', sort=Sort.PopularWeek)
+				custom = [Option.ID, Option.Title, Option.Epos]
+				Utils.export(popular_loli, filename=Path('popular_loli.json'), options=custom)
+				# rPage = random.randrange(1)+1
+				# results = Utils.search_by_query('chinese uploaded:<30d -males -tomgirl', page=rPage, sort=Sort.PopularYear)
+				# print('[debug] rPage:', rPage)
 
 
 				return random.choice(list(results)).url
 			except Exception as e:
-				print("Page", rPage, "return 404. Random again.")
+				if test == MAX_TRY-1:
+					return str(e) + " Please try again later."
+				# print("Page", rPage, "return 404. Random again.")
 
 
 	async def fap(self, message):
