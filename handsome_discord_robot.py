@@ -8,6 +8,7 @@ import random
 import requests
 import time
 from hentai import Hentai, Format, Utils, Sort, Option, Tag
+from datetime import datetime, timedelta
 
 class handsomeClient(discord.Client):
 	def nhentai_recommander(self):
@@ -77,6 +78,15 @@ class handsomeClient(discord.Client):
 		# Ehentai Recommander
 		elif fap:
 			await self.fap(message)
+
+		#time bot
+		if message.content.startswith('!time'):
+			now = datetime.now()
+			LA_time = now.strftime("%m/%d %H:%M:%S")
+			AT_time = (now + timedelta(hours=3)).strftime("%m/%d %H:%M:%S")
+			TP_time = (now + timedelta(hours=16)).strftime("%m/%d %H:%M:%S")
+
+			await message.channel.send("```js\nFap time\nLosAngeles : "+LA_time+"\nAtlanta    : "+AT_time+"\nTaipei     : "+TP_time+"```")
 
 	async def on_ready(self):
 		print("[Info] Start the handsome_discord_robot! HANDSOME!")
