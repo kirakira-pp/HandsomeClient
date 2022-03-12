@@ -22,12 +22,9 @@ class handsomeClient(discord.Client):
 		MAX_TRY = 1 
 		for test in range(MAX_TRY):
 			try:
-				popular_loli = Utils.search_by_query('tag:loli', sort=Sort.PopularWeek)
-				custom = [Option.ID, Option.Title, Option.Epos]
-				Utils.export(popular_loli, filename=Path('popular_loli.json'), options=custom)
-				# rPage = random.randrange(1)+1
-				# results = Utils.search_by_query('chinese uploaded:<30d -males -tomgirl', page=rPage, sort=Sort.PopularYear)
-				# print('[debug] rPage:', rPage)
+				rPage = random.randrange(30)+1
+				results = Utils.search_by_query('chinese uploaded:<30d -males -tomgirl', page=rPage, sort=Sort.PopularYear)
+				print('[debug] rPage:', rPage)
 
 
 				return random.choice(list(results)).url
