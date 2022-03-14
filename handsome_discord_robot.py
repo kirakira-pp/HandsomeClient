@@ -83,8 +83,8 @@ class handsomeClient(discord.Client):
 		if message.content.startswith('!time'):
 			now = datetime.now()
 			TP_time = now.strftime("%m/%d %H:%M:%S")
-			AT_time = (now + timedelta(hours=-13)).strftime("%m/%d %H:%M:%S")
-			LA_time = (now + timedelta(hours=-16)).strftime("%m/%d %H:%M:%S")
+			AT_time = (now + timedelta(hours=-12)).strftime("%m/%d %H:%M:%S")
+			LA_time = (now + timedelta(hours=-15)).strftime("%m/%d %H:%M:%S")
 
 			await message.channel.send("```js\nFap time\nLosAngeles : "+LA_time+"\nAtlanta    : "+AT_time+"\nTaipei     : "+TP_time+"```")
 
